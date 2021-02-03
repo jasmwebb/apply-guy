@@ -6,6 +6,13 @@
   export let auth;
 
   let nickname = "";
+  let showAddForm = false;
+  let currentEdit = "";
+
+  const toggleForm = {
+    add: () => showAddForm = !showAddForm,
+    edit: (id) => currentEdit = currentEdit === id ? "" : id
+  }
 </script>
 
 <button on:click={() => auth.signOut()}>Log Out</button>
@@ -26,7 +33,12 @@
     let:ref={jobsRef}
     log>
 
-    <JobForm jobsRef={jobsRef} />
+    {#if showAddForm}
+      <button on:click={toggleForm.add}>X</button>
+      <JobForm {jobsRef} />
+    {:else}
+      <button on:click={toggleForm.add}>Add An Application</button>
+    {/if}
 
     {#if !jobs.length}
       <p>Not tracking any job applications yet...</p>
@@ -57,9 +69,16 @@
               <td>{job.dateReplied ? job.dateReplied : ""}</td>
               <td>{job.dateInterview ? job.dateInterview : ""}</td>
               <td>{job.offer ? "Yes" : "No"}</td>
+              <td>
+                <button on:click={() => toggleForm.edit(job.id)}>
+                  Edit
+                </button>
+              </td>
             </tr>
             
-            <!-- <button on:click={() => job.ref.delete()}>Delete</button> -->
+            <aside class:showEditForm="{currentEdit === job.id}">
+              <JobForm {jobsRef} />
+            </aside>
           {/each}
         </tbody>
       </table>   
@@ -68,3 +87,13 @@
     <span slot="loading">Loading jobs...</span>
   </Collection>
 </Doc>
+
+<style>
+  aside {
+    display: none;
+  }
+
+  .showEditForm {
+    display: block;
+  }
+</style>
