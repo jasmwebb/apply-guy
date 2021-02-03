@@ -20,7 +20,6 @@
     } else {
       try {
         await auth.createUserWithEmailAndPassword(email, password);
-        alert("You're signed up! Now go ahead and log in. :)");
       } catch (error) {
         alert(error.message);
       }
@@ -30,12 +29,12 @@
 
 <form on:submit|preventDefault>
   <label for="email">Email</label>
-  <input type="email" bind:value={email} id="email" />
+  <input type="email" bind:value={email} id="email" required />
   <label for="password">Password</label>
-  <input type="password" bind:value={password} id="password" />
+  <input type="password" bind:value={password} id="password" required />
   {#if showRegister}
     <label for="confirmPass">Confirm Password</label>
-    <input type="password" bind:value={confirmPass} id="confirmPass" />
+    <input type="password" bind:value={confirmPass} id="confirmPass" required />
   {/if}
 
   <p on:click={() => showRegister = !showRegister}>

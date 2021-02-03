@@ -15,7 +15,7 @@
     appId: "1:336464048821:web:0c5bf6687f99722ea804fc"
   };
 
-  firebase.initializeApp(firebaseConfig);
+  export let db = firebase.initializeApp(firebaseConfig);
 </script>
 
 <svelte:head>
@@ -23,21 +23,19 @@
 </svelte:head>
 
 <main>
-  <!-- 1. 🔥 Firebase App -->
   <FirebaseApp {firebase}>
-    <!-- 2. 😀 Get the current user -->
     <User persist={sessionStorage} let:user let:auth>
       <div slot="signed-out">
-        <Login {auth} />
+        <Login {db} {auth} {user} />
       </div>
 
-      <Dashboard {user} {auth} />    
+      <Dashboard {auth} {user} />    
     </User>
   </FirebaseApp>
 </main>
 
 <footer>
-  <a href="/">View source on GitHub</a>
+  <a href="/" target="_blank">View source on GitHub</a>
   <p>Friendship ended with spreadsheets.</p>
   <p>Now ApplyGuy is my best friend.</p>
 </footer>

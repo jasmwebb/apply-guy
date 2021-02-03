@@ -1,24 +1,24 @@
 <script>
   import { Doc, Collection } from "sveltefire";
+  import JobForm from "./JobForm.svelte";
 
   export let user;
   export let auth;
-</script>
 
-<svelte:head>
-  <title>Apply Guy - Dashboard</title>
-</svelte:head>
+  let nickname = "";
+</script>
 
 <button on:click={() => auth.signOut()}>Log Out</button>
 
-<!-- 3. 📜 Get a Firestore document owned by a user -->
-<Doc path={`users/${user.uid}`} let:data={userData} let:ref={userRef} log>
+<Doc path={`users/${user.uid}`} let:data={userData} let:ref={userRef} let:error={err} log>
+  <form slot="fallback" on:submit|preventDefault={() => userRef.set({ nickname: nickname })}>
+    <label for="nickname">Hey! What's your name?</label>
+    <input type="text" id="nickname" bind:value={nickname} />
+    <button>Nice to meet you!</button>
+  </form>
 
-  <h1>Hi, {userData.nickname}!</h1>
+  <h1>Howdy, {userData.nickname}!</h1>
 
-  <!-- 4. 💬 Get all the comments in its subcollection -->
-
-  <h2>Jobs</h2>
   <Collection
     path={userRef.collection("jobs")}
     query={ref => ref.orderBy("dateApplied")}
@@ -26,27 +26,45 @@
     let:ref={jobsRef}
     log>
 
+    <JobForm jobsRef={jobsRef} />
+
     {#if !jobs.length}
-      <p>No jobs yet...</p>
+      <p>Not tracking any job applications yet...</p>
+    {:else}
+      <table>
+        <thead>
+          <tr>
+            <th>Position</th>
+            <th>Company</th>
+            <th>Type</th>
+            <th>Date Posted</th>
+            <th>Date Applied</th>
+            <th>Date Replied</th>
+            <th>Date Interview</th>
+            <th>Offer</th>
+          </tr>
+        </thead>
+        <tbody>
+          {#each jobs as job}
+            <tr>
+              <td>
+                <a href={job.url} target="_blank">{job.position}</a>
+              </td>
+              <td>{job.company}</td>
+              <td>{job.type}</td>
+              <td>{job.datePosted}</td>
+              <td>{job.dateApplied}</td>
+              <td>{job.dateReplied ? job.dateReplied : ""}</td>
+              <td>{job.dateInterview ? job.dateInterview : ""}</td>
+              <td>{job.offer ? "Yes" : "No"}</td>
+            </tr>
+            
+            <!-- <button on:click={() => job.ref.delete()}>Delete</button> -->
+          {/each}
+        </tbody>
+      </table>   
     {/if}
 
-    {#each jobs as job}
-      <p>
-        {job.position} @ {job.company}
-        <button on:click={() => job.ref.delete()}>Delete</button>
-      </p>
-    {/each}
-
-
-    <!-- <button
-      on:click={() => jobsRef.add({
-          text: '💬 Me too!',
-          createdAt: Date.now()
-        })}>
-      Add job
-    </button> -->
-
     <span slot="loading">Loading jobs...</span>
-
   </Collection>
 </Doc>
