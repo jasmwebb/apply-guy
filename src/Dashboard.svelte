@@ -5,13 +5,24 @@
   export let user;
   export let auth;
 
+  function resetForm() {
+    return {
+      position: "",
+      company: "",
+      url: "",
+      type: "Full-time",
+      datePosted: "",
+      dateApplied: ""
+    }
+  }
+
   let nickname = "";
   let showAddForm = false;
-  let currentEdit = "";
+  let formContent = resetForm();
 
   const toggleForm = {
     add: () => showAddForm = !showAddForm,
-    edit: (id) => currentEdit = currentEdit === id ? "" : id
+    edit: (job) => formContent = formContent === job ? resetForm() : job
   }
 </script>
 
@@ -35,7 +46,7 @@
 
     {#if showAddForm}
       <button on:click={toggleForm.add}>X</button>
-      <JobForm {jobsRef} />
+      <JobForm {jobsRef} job={formContent} />
     {:else}
       <button on:click={toggleForm.add}>Add An Application</button>
     {/if}
@@ -70,14 +81,14 @@
               <td>{job.dateInterview ? job.dateInterview : ""}</td>
               <td>{job.offer ? "Yes" : "No"}</td>
               <td>
-                <button on:click={() => toggleForm.edit(job.id)}>
+                <button on:click={() => toggleForm.edit(job)}>
                   Edit
                 </button>
               </td>
             </tr>
             
-            <aside class:showEditForm="{currentEdit === job.id}">
-              <JobForm {jobsRef} />
+            <aside class:showEditForm="{formContent === job}">
+              <JobForm {jobsRef} {job} />
             </aside>
           {/each}
         </tbody>
