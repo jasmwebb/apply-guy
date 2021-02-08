@@ -23,7 +23,10 @@
 
   const toggleForm = {
     add: () => showAddForm = !showAddForm,
-    edit: (job) => formContent = formContent === job ? resetForm() : job
+    edit: (job) => {
+      showAddForm = false;
+      formContent = formContent === job ? resetForm() : job;
+    }
   }
 </script>
 
@@ -47,7 +50,7 @@
 
     {#if showAddForm}
       <button on:click={toggleForm.add}>X</button>
-      <JobForm {jobsRef} job={formContent} />
+      <JobForm {jobsRef} job={formContent} {showAddForm} />
     {:else}
       <button on:click={toggleForm.add}>Add An Application</button>
     {/if}

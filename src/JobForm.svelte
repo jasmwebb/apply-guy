@@ -1,6 +1,7 @@
 <script>
   export let jobsRef;
   export let job;
+  export let showAddForm = false;
 </script>
 
 <form on:submit|preventDefault>
@@ -26,9 +27,25 @@
   <label for="dateApplied">Date Applied</label>
   <input type="date" id="dateApplied" bind:value={job.dateApplied} />
 
-  {#if Object.values(job).some(v => !v)}
-    <button on:click={() => jobsRef.add(job)}>Track Application</button>
+  {#if showAddForm}
+    <button on:click={() => {
+      jobsRef.add(job);
+      showAddForm = false;
+    }}>
+      Track Application
+    </button>
   {:else}
+    <label for="dateReplied">Date Reply Received</label>
+    <input type="date" id="dateReplied" bind:value={job.dateReplied} />
+
+    <label for="dateInterview">Date of Interview</label>
+    <input type="date" id="dateInterview" bind:value={job.dateInterview} />
+
+    <label for="offer">
+      <input type=checkbox id="offer" bind:checked={job.offer}>
+      Got an offer!
+    </label>
+    
     <button on:click={() => jobsRef.doc(job.id).delete()}>Delete</button>
     <button on:click={() => jobsRef.doc(job.id).update(job)}>Update Application</button>
   {/if}
