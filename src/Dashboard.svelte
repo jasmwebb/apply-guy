@@ -1,6 +1,7 @@
 <script>
   import { Doc, Collection } from "sveltefire";
   import JobForm from "./JobForm.svelte";
+  import StatsPanel from "./StatsPanel.svelte";
 
   export let user;
   export let auth;
@@ -50,6 +51,8 @@
     {:else}
       <button on:click={toggleForm.add}>Add An Application</button>
     {/if}
+
+    <StatsPanel {jobs} />
 
     {#if !jobs.length}
       <p>Not tracking any job applications yet...</p>
