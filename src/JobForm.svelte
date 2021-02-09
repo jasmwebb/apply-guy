@@ -1,7 +1,8 @@
 <script>
+  import { toggleAddForm } from "./stores";
+
   export let jobsRef;
-  export let job;
-  export let showAddForm = false;
+  export let job = {};
 </script>
 
 <form on:submit|preventDefault>
@@ -27,10 +28,10 @@
   <label for="dateApplied">Date Applied</label>
   <input type="date" id="dateApplied" bind:value={job.dateApplied} />
 
-  {#if showAddForm}
+  {#if $toggleAddForm}
     <button on:click={() => {
       jobsRef.add(job);
-      showAddForm = false;
+      toggleAddForm.toggle();
     }}>
       Track Application
     </button>
@@ -46,6 +47,7 @@
       Got an offer!
     </label>
     
+    <!-- TODO: Confirm delete -->
     <button on:click={() => jobsRef.doc(job.id).delete()}>Delete</button>
     <button on:click={() => jobsRef.doc(job.id).update(job)}>Update Application</button>
   {/if}
