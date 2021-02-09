@@ -3,6 +3,19 @@
 
   export let jobsRef;
   export let job = {};
+
+  function addJob() {
+    jobsRef.add(job);
+    toggleAddForm.toggle();
+  }
+
+  function deleteJob() {
+    let confirmDelete = confirm("Are you sure you want to delete this job?");
+
+    if (confirmDelete) {
+      jobsRef.doc(job.id).delete();
+    }
+  }
 </script>
 
 <form on:submit|preventDefault>
@@ -29,10 +42,7 @@
   <input type="date" id="dateApplied" bind:value={job.dateApplied} />
 
   {#if $toggleAddForm}
-    <button on:click={() => {
-      jobsRef.add(job);
-      toggleAddForm.toggle();
-    }}>
+    <button on:click={addJob}>
       Track Application
     </button>
   {:else}
@@ -47,8 +57,7 @@
       Got an offer!
     </label>
     
-    <!-- TODO: Confirm delete -->
-    <button on:click={() => jobsRef.doc(job.id).delete()}>Delete</button>
+    <button on:click={deleteJob}>Delete</button>
     <button on:click={() => jobsRef.doc(job.id).update(job)}>Update Application</button>
   {/if}
 </form>
