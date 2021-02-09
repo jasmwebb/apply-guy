@@ -4,19 +4,48 @@
 
   export let jobsRef;
   export let jobs;
+
+  // https://svelte.dev/repl/08aca4e5d75e4ba7b8b05680f3d3bf7a?version=3.23.1
+  let sortBy = {
+    col: "dateApplied", 
+    ascending: true
+  };
+
+  $: sortCol = (column) => {
+    if (sortBy.col == column) {
+      sortBy.ascending = !sortBy.ascending;
+    } else {
+      sortBy.col = column;
+      sortBy.ascending = true;
+    }
+
+    let sortModifier = sortBy.ascending ? 1 : -1;
+
+    let sortLogic = (a, b) => {
+      if (a[column] < b[column]) {
+        return -1 * sortModifier;
+      } else if (a[column] > b[column]) {
+        return 1 * sortModifier;
+      } else {
+        return 0
+      }
+    }
+
+    jobs = jobs.sort(sortLogic);
+  };
 </script>
 
 <table>
   <thead>
     <tr>
-      <th>Position</th>
-      <th>Company</th>
-      <th>Type</th>
-      <th>Date Posted</th>
-      <th>Date Applied</th>
-      <th>Date Replied</th>
-      <th>Date Interview</th>
-      <th>Offer</th>
+      <th on:click={sortCol("position")}>Position</th>
+      <th on:click={sortCol("company")}>Company</th>
+      <th on:click={sortCol("type")}>Type</th>
+      <th on:click={sortCol("datePosted")}>Date Posted</th>
+      <th on:click={sortCol("dateApplied")}>Date Applied</th>
+      <th on:click={sortCol("dateReplied")}>Date Replied</th>
+      <th on:click={sortCol("dateInterview")}>Date Interview</th>
+      <th on:click={sortCol("offer")}>Offer</th>
     </tr>
   </thead>
   <tbody>

@@ -17,7 +17,8 @@ function createEdit() {
       url: "",
       type: "Full-time",
       datePosted: "",
-      dateApplied: ""
+      dateApplied: "",
+      offer: false
     }
   }
 
