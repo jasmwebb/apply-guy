@@ -10,4 +10,4 @@
 - [x] User can add a new job to track via a form.
 - [x] User can edit job to add in new details, or update existing data.
 - [x] User can delete a job from the tracker.
-- [ ] User can sort the list of jobs by any of the details.
+- [x] User can sort the list of jobs by any of the details.
