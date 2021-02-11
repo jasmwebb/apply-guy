@@ -27,14 +27,15 @@
   }
 </script>
 
+<h1>
+  {showRegister ? "Register a New Account" : "Log In to Your Account"}
+</h1>
+
 <form on:submit|preventDefault>
-  <label for="email">Email</label>
-  <input type="email" bind:value={email} id="email" required />
-  <label for="password">Password</label>
-  <input type="password" bind:value={password} id="password" required />
+  <input type="email" bind:value={email} id="email" placeholder="Email" required />
+  <input type="password" bind:value={password} id="password" placeholder="Password" required />
   {#if showRegister}
-    <label for="confirmPass">Confirm Password</label>
-    <input type="password" bind:value={confirmPass} id="confirmPass" required />
+    <input type="password" bind:value={confirmPass} id="confirmPass" placeholder="Confirm Password" required />
   {/if}
 
   <p on:click={() => showRegister = !showRegister}>
@@ -47,3 +48,31 @@
     <button on:click={logIn}>Log In</button>
   {/if}
 </form>
+
+<style>
+  h1 {
+    text-align: center;
+  }
+
+  form {
+    max-width: 50ch;
+    margin: 0 auto;
+  }
+
+  form input {
+    display: block;
+    margin: 0;
+    width: 100%;
+  }
+
+  form p {
+    text-align: right;
+    cursor: pointer;
+  }
+
+  form button {
+    width: 100%;
+    border-radius: 100vw;
+    cursor: pointer;
+  }
+</style>

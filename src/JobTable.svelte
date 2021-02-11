@@ -46,12 +46,13 @@
       <th on:click={sortCol("dateReplied")}>Date Replied</th>
       <th on:click={sortCol("dateInterview")}>Date Interview</th>
       <th on:click={sortCol("offer")}>Offer</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     {#each jobs as job}
       <tr>
-        <td>
+        <td class="position">
           <a href={job.url} target="_blank">{job.position}</a>
         </td>
         <td>{job.company}</td>
@@ -60,7 +61,7 @@
         <td>{job.dateApplied}</td>
         <td>{job.dateReplied ? job.dateReplied : ""}</td>
         <td>{job.dateInterview ? job.dateInterview : ""}</td>
-        <td>{job.offer ? "Yes" : "No"}</td>
+        <td class="offer">{job.offer ? "✔" : "✖"}</td>
         <td>
           <button on:click={() => toggleEditForm.toggle(job)}>
             Edit
@@ -76,6 +77,61 @@
 </table> 
 
 <style>
+  table {
+    margin-top: 1rem;
+    width: 100%;
+    border-radius: var(--br);
+    box-shadow: var(--b-shadow);
+    overflow: hidden;
+    border-collapse: collapse;
+  }
+
+  thead {
+    background-color: rgba(var(--color-primary), 0.6);
+  }
+
+  th {
+    padding: 0.5rem;
+    border: none;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  tbody tr:nth-of-type(2n) {
+    background-color: rgba(var(--color-primary), 0.2);
+  }
+
+  td {
+    padding: 0.75rem;
+  }
+
+  .position a {
+    font-weight: 600;
+  }
+
+  .offer {
+    text-align: center;
+    font-size: 1.25rem;
+  }
+
+  button {
+    cursor: pointer;
+    margin: 0;
+    background-color: rgba(var(--color-primary), 0.6);
+    border: 2px solid rgb(var(--color-primary));
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    box-shadow: var(--b-shadow);
+    border-radius: 100vw;
+    padding: 0.2rem 0.75rem;
+  }
+
+  button:hover {
+    background-color: rgba(var(--color-primary), 0.8);
+  }
+
   aside {
     display: none;
   }

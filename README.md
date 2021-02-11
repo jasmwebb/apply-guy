@@ -11,3 +11,4 @@
 - [x] User can edit job to add in new details, or update existing data.
 - [x] User can delete a job from the tracker.
 - [x] User can sort the list of jobs by any of the details.
+- [ ] User sees feedback messages on screen after doing an action (e.g., adding a job, updating a job, etc.).
