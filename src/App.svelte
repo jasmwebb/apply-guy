@@ -56,12 +56,27 @@
 <style>
   :global(:root) {
     --color-primary: 255,202,79; /* #FFCA4F */
-    --color-accent: 0,151,154; /* #00979A */
+    --color-accent: 95,105,200; /* #5F69C8 */
     --color-light: 255,255,255;
     --color-dark: 40,20,75; /* #28144B */
     --t-shadow: 0 1px 0.8px rgba(var(--color-dark), 0.7);
     --b-shadow: 0 1.5px 6px 0 rgba(var(--color-dark), 0.125);
     --br: 4px 20px 4px 20px;
+  }
+
+  :global(button) {
+    margin: 0;
+    background-color: rgba(var(--color-primary), 0.6);
+    border: 2px solid rgb(var(--color-primary));
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    box-shadow: var(--b-shadow);
+  }
+
+  :global(button:hover) {
+    cursor: pointer;
+    background-color: rgba(var(--color-primary), 0.8);
   }
 
   .wave {
@@ -75,6 +90,7 @@
 
   footer {
     margin-top: 4rem;
+    padding-bottom: 1rem;
     text-align: center;
     font-size: 0.9rem;
     line-height: 1;

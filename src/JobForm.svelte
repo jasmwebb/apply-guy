@@ -20,31 +20,42 @@
 
 <form on:submit|preventDefault>
   <div>
-    <label for="position">Position</label>
-    <input type="text" id="position" bind:value={job.position} required />
-  
-    <label for="company">Company</label>
-    <input type="text" id="company" bind:value={job.company} />
+    <div class="group">
+      <label for="position">Position</label>
+      <input type="text" id="position" bind:value={job.position} required />
+    </div>
+
+    <div class="group">
+      <label for="company">Company</label>
+      <input type="text" id="company" bind:value={job.company} />
+    </div>
   </div>
 
-  <div>
+  <div class="group">
     <label for="url">Link to Posting</label>
     <input type="text" id="url" bind:value={job.url} required />
   </div>
 
   <div>
-    <label for="type">Employment Type</label>
-    <select id="type" bind:value={job.type}>
-      <option value="Full-time">Full-time</option>
-      <option value="Part-time">Part-time</option>
-      <option value="Contract">Contract</option>
-    </select>
+    <div class="group">
+      <label for="type">Employment Type</label>
+      <select id="type" bind:value={job.type}>
+        <option value="Full-time">Full-time</option>
+        <option value="Part-time">Part-time</option>
+        <option value="Contract">Contract</option>
+        <option value="Contract">Internship</option>
+      </select>
+    </div>
+
+    <div class="group">
+      <label for="datePosted">Date Position Posted</label>
+      <input type="date" id="datePosted" bind:value={job.datePosted} />
+    </div>
     
-    <label for="datePosted">Date Position Posted</label>
-    <input type="date" id="datePosted" bind:value={job.datePosted} />
-  
-    <label for="dateApplied">Date Applied</label>
-    <input type="date" id="dateApplied" bind:value={job.dateApplied} />
+    <div class="group">
+      <label for="dateApplied">Date Applied</label>
+      <input type="date" id="dateApplied" bind:value={job.dateApplied} />
+    </div>
   </div>
 
   {#if $toggleAddForm}
@@ -52,19 +63,27 @@
       Track Application
     </button>
   {:else}
-    <label for="dateReplied">Date Reply Received</label>
-    <input type="date" id="dateReplied" bind:value={job.dateReplied} />
+    <div>
+      <div class="group">
+        <label for="dateReplied">Date Reply Received</label>
+        <input type="date" id="dateReplied" bind:value={job.dateReplied} />
+      </div>
 
-    <label for="dateInterview">Date of Interview</label>
-    <input type="date" id="dateInterview" bind:value={job.dateInterview} />
+      <div class="group">
+        <label for="dateInterview">Date of Interview</label>
+        <input type="date" id="dateInterview" bind:value={job.dateInterview} />
+      </div>
+    </div>
 
     <label for="offer">
       <input type=checkbox id="offer" bind:checked={job.offer}>
       Got an offer!
     </label>
     
-    <button on:click={deleteJob}>Delete</button>
-    <button on:click={() => jobsRef.doc(job.id).update(job)}>Update Application</button>
+    <div class="edit-btns">
+      <button on:click={() => jobsRef.doc(job.id).update(job)}>Update Application</button>
+      <button class="delete" on:click={deleteJob}>Delete</button>
+    </div>
   {/if}
 </form>
 
@@ -72,9 +91,60 @@
   form {
     display: flex;
     flex-direction: column;
+    box-shadow: var(--b-shadow);
+    border-radius: var(--br);
+    margin: 1rem 0;
+    padding: 1rem;
   }
 
   form div {
+    display: inherit;
     width: 100%;
+  }
+
+  div div.group:not(:first-child) {
+    margin-left: 1rem;
+  }
+
+  .group {
+    display: inherit;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  button {
+    border-radius: 100vw;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    padding: 0.2rem 1.25rem;
+    width: fit-content;
+  }
+
+  .edit-btns button {
+    display: inline-block;
+  }
+
+  .edit-btns button:first-of-type {
+    margin-right: 1rem;
+  }
+
+  .delete {
+    background-color: lightpink;
+    border-color: lightcoral;
+  }
+
+  .delete:hover {
+    background-color: lightcoral;
+  }
+
+  label {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  label[for="offer"] {
+    margin-top: 0.75rem;
+    font-size: 1rem;
   }
 </style>

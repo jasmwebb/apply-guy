@@ -1,5 +1,5 @@
 <script>
-  import { toggleEditForm } from "./stores";
+  import { toggleAddForm, toggleEditForm } from "./stores";
   import JobForm from "./JobForm.svelte";
 
   export let jobsRef;
@@ -63,15 +63,18 @@
         <td>{job.dateInterview ? job.dateInterview : ""}</td>
         <td class="offer">{job.offer ? "✔" : "✖"}</td>
         <td>
-          <button on:click={() => toggleEditForm.toggle(job)}>
+          <button on:click={() => {
+            if ($toggleAddForm) toggleAddForm.toggle();
+            toggleEditForm.toggle(job);
+          }}>
             Edit
           </button>
         </td>
       </tr>
       
-      <aside class:showEditForm="{$toggleEditForm === job}">
+      <div class:showEditForm="{$toggleEditForm === job}">
         <JobForm {jobsRef} {job} />
-      </aside>
+      </div>
     {/each}
   </tbody>
 </table> 
@@ -107,6 +110,7 @@
   }
 
   .position a {
+    color: rgb(var(--color-accent));
     font-weight: 600;
   }
 
@@ -132,11 +136,13 @@
     background-color: rgba(var(--color-primary), 0.8);
   }
 
-  aside {
+  div {
     display: none;
   }
 
   .showEditForm {
     display: block;
+    float: left;
+    margin-left: 10px;
   }
 </style>

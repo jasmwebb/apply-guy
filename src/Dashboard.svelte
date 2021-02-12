@@ -1,6 +1,6 @@
 <script>
   import { Doc, Collection } from "sveltefire";
-  import { toggleAddForm } from "./stores";
+  import { toggleAddForm, toggleEditForm } from "./stores";
   import JobForm from "./JobForm.svelte";
   import JobTable from "./JobTable.svelte";
   import StatsPanel from "./StatsPanel.svelte";
@@ -9,6 +9,11 @@
   export let auth;
 
   let nickname = "";
+
+  function generateGreeting() {
+    const greetings = ["Howdy,", "Hello there,", "Hiya,", "Wassup,", "Hey hey, it's", "We meet again,"];
+    return greetings[Math.floor(Math.random() * greetings.length)];
+  }
 </script>
 
 <Doc path={`users/${user.uid}`} let:data={userData} let:ref={userRef} let:error={err} log>
@@ -28,13 +33,16 @@
   <section class="user-panel">
     <div class="details">
       <div>
-        <h1>Howdy, {userData.nickname}!</h1>
+        <h1>{generateGreeting()} {userData.nickname}!</h1>
         <button class="logout" on:click={() => auth.signOut()}>Log Out</button>
       </div>
       <StatsPanel {jobs} />
     </div>
 
-      <button class="add" on:click={toggleAddForm.toggle}>
+      <button class="add" on:click={() => {
+        if ($toggleEditForm) toggleEditForm.toggle({});
+        toggleAddForm.toggle();
+      }}>
         <svg class="icon line" width="18" height="18" id="plus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <line x1="19" y1="12" x2="5" y2="12" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 3.5;"></line>
           <line x1="12" y1="5" x2="12" y2="19" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 3.5;"></line>
@@ -75,21 +83,6 @@
 
   h1 {
     margin-bottom: 10px;
-  }
-
-  button {
-    cursor: pointer;
-    margin: 0;
-    background-color: rgba(var(--color-primary), 0.6);
-    border: 2px solid rgb(var(--color-primary));
-    font-weight: 600;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    box-shadow: var(--b-shadow);
-  }
-
-  button:hover {
-    background-color: rgba(var(--color-primary), 0.8);
   }
 
   .logout {

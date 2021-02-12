@@ -38,12 +38,12 @@
     <input type="password" bind:value={confirmPass} id="confirmPass" placeholder="Confirm Password" required />
   {/if}
 
-  <p on:click={() => showRegister = !showRegister}>
+  <button type="button" class="register" on:click={() => showRegister = !showRegister}>
     {showRegister ? "Already have an account?" : "Need an account?"}
-  </p>
+  </button>
   
   {#if showRegister}
-    <button on:click={register}>Sign Up</button>
+    <button on:click={register}>Register</button>
   {:else}
     <button on:click={logIn}>Log In</button>
   {/if}
@@ -65,14 +65,25 @@
     width: 100%;
   }
 
-  form p {
+  .register {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    text-transform: none;
     text-align: right;
-    cursor: pointer;
+    padding: 1.5rem 0;
+  }
+
+  .register:hover {
+    color: rgb(var(--color-accent));
+  }
+
+  .register:active {
+    background-color: transparent;
   }
 
   form button {
     width: 100%;
     border-radius: 100vw;
-    cursor: pointer;
   }
 </style>
