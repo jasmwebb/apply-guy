@@ -39,7 +39,9 @@
         <Login {auth}/>
       </div>
 
-      <Dashboard {auth} {user} />    
+      <Dashboard {auth} {user} />
+      
+      <span slot="loading">Logging you in...</span>
     </User>
   </FirebaseApp>
 </main>

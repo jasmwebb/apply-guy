@@ -1,5 +1,5 @@
 <script>
-  import { toggleAddForm } from "./stores";
+  import { toggleAddForm, toggleEditForm } from "./stores";
 
   export let jobsRef;
   export let job = {};
@@ -59,9 +59,12 @@
   </div>
 
   {#if $toggleAddForm}
-    <button on:click={addJob}>
-      Track Application
-    </button>
+    <div class="form-btns">
+      <button on:click={addJob}>
+        Track Application
+      </button>
+      <button on:click={toggleAddForm.toggle}>Cancel</button>
+    </div>
   {:else}
     <div>
       <div class="group">
@@ -80,8 +83,9 @@
       Got an offer!
     </label>
     
-    <div class="edit-btns">
+    <div class="form-btns">
       <button on:click={() => jobsRef.doc(job.id).update(job)}>Update Application</button>
+      <button on:click={() => toggleEditForm.toggle({})}>Cancel</button>
       <button class="delete" on:click={deleteJob}>Delete</button>
     </div>
   {/if}
@@ -95,11 +99,13 @@
     border-radius: var(--br);
     margin: 1rem 0;
     padding: 1rem;
+    background-color: rgb(var(--color-light));
   }
 
   form div {
     display: inherit;
     width: 100%;
+    margin: 0.25rem auto;
   }
 
   div div.group:not(:first-child) {
@@ -120,15 +126,16 @@
     width: fit-content;
   }
 
-  .edit-btns button {
-    display: inline-block;
+  .form-btns  {
+    display: flex;
   }
 
-  .edit-btns button:first-of-type {
+  .form-btns button:first-of-type {
     margin-right: 1rem;
   }
 
   .delete {
+    margin-left: auto;
     background-color: lightpink;
     border-color: lightcoral;
   }

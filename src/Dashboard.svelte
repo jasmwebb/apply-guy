@@ -19,8 +19,10 @@
 <Doc path={`users/${user.uid}`} let:data={userData} let:ref={userRef} let:error={err} log>
   <form slot="fallback" on:submit|preventDefault={() => userRef.set({ nickname: nickname })}>
     <label for="nickname">Hey! What's your name?</label>
-    <input type="text" id="nickname" bind:value={nickname} />
-    <button>Nice to meet you!</button>
+    <div>
+      <input type="text" id="nickname" bind:value={nickname} />
+      <button>Nice to meet you!</button>
+    </div>
   </form>
   
   <Collection
@@ -57,7 +59,8 @@
 
     
     {#if !jobs.length}
-      <p>Not tracking any job applications yet...</p>
+      <p class="no-jobs">Not tracking any applications yet...</p>
+      <p class="no-jobs">Add some with the big, yellow "+ APP" button above!</p>
     {:else}
       <JobTable {jobsRef} {jobs} />  
     {/if}
@@ -67,6 +70,26 @@
 </Doc>
 
 <style>
+  form {
+    width: 50%;
+    margin: 1rem auto;
+  }
+
+  form div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  form label {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+  }
+
+  form button {
+    border-radius: 100vw;
+  }
+
   .user-panel {
     display: flex;
     gap: 0.75rem;
@@ -100,5 +123,16 @@
     display: block;
     margin: auto;
     margin-bottom: 0.15rem;
+  }
+
+  .no-jobs {
+    padding-left: 0.5rem;
+    font-weight: 600;
+  }
+
+  .no-jobs:first-of-type {
+    padding-top: 1rem;
+    font-size: 1.5rem;
+    color: rgb(var(--color-accent));
   }
 </style>

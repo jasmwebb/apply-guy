@@ -72,6 +72,7 @@
         </td>
       </tr>
       
+      <div class:showEditForm="{$toggleEditForm === job}" id="overlay"></div>
       <div class:showEditForm="{$toggleEditForm === job}">
         <JobForm {jobsRef} {job} />
       </div>
@@ -140,9 +141,18 @@
     display: none;
   }
 
+  #overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(var(--color-dark), 0.15);
+  }
+
   .showEditForm {
     display: block;
-    float: left;
-    margin-left: 10px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 </style>

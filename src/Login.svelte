@@ -31,6 +31,14 @@
   {showRegister ? "Register a New Account" : "Log In to Your Account"}
 </h1>
 
+<button class="action-btn demo-link" on:click={() => {
+  email = "demo@demo.com";
+  password = "demopassword";
+  logIn();
+}}>
+  Or try out the demo!
+</button>
+
 <form on:submit|preventDefault>
   <input type="email" bind:value={email} id="email" placeholder="Email" required />
   <input type="password" bind:value={password} id="password" placeholder="Password" required />
@@ -38,7 +46,7 @@
     <input type="password" bind:value={confirmPass} id="confirmPass" placeholder="Confirm Password" required />
   {/if}
 
-  <button type="button" class="register" on:click={() => showRegister = !showRegister}>
+  <button type="button" class="action-btn" on:click={() => showRegister = !showRegister}>
     {showRegister ? "Already have an account?" : "Need an account?"}
   </button>
   
@@ -65,25 +73,33 @@
     width: 100%;
   }
 
-  .register {
+  .action-btn {
     background-color: transparent;
     border: none;
     box-shadow: none;
     text-transform: none;
     text-align: right;
+    color: rgb(var(--color-accent));
     padding: 1.5rem 0;
   }
 
-  .register:hover {
+  .action-btn:hover {
     color: rgb(var(--color-accent));
   }
 
-  .register:active {
+  .action-btn:active {
     background-color: transparent;
   }
 
   form button {
     width: 100%;
     border-radius: 100vw;
+  }
+
+  .demo-link {
+    font-size: 1.1rem;
+    padding-top: 0;
+    width: 100%;
+    text-align: center;
   }
 </style>
