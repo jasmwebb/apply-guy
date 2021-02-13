@@ -1,8 +1,10 @@
 ### Friendship ended with spreadsheets. Now ApplyGuy is my best friend.
 
+Deployed on Netlify: [https://apply-guy.netlify.app/](https://apply-guy.netlify.app/)
+
 ## Basic Features
 - [x] If not logged in, user is brought to a page with only a login/register form.
-- [ ] If not logged in, users can test the app with a demo account.
+- [x] If not logged in, users can test the app with a demo account.
 - [x] User sees an link to logout.
 - [x] User sees a list of jobs they are keeping track of.
 - [x] User sees job details within list of jobs (position, link to posting, company, employment type, date listing was posted, date applied, date received a reply, date of interview, if they got an offer).
