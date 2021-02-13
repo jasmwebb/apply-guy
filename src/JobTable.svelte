@@ -57,10 +57,10 @@
         </td>
         <td>{job.company}</td>
         <td>{job.type}</td>
-        <td>{job.datePosted}</td>
-        <td>{job.dateApplied}</td>
-        <td>{job.dateReplied ? job.dateReplied : ""}</td>
-        <td>{job.dateInterview ? job.dateInterview : ""}</td>
+        <td class="date">{job.datePosted}</td>
+        <td class="date">{job.dateApplied}</td>
+        <td class="date">{job.dateReplied ? job.dateReplied : ""}</td>
+        <td class="date">{job.dateInterview ? job.dateInterview : ""}</td>
         <td class="offer">{job.offer ? "✔" : "✖"}</td>
         <td>
           <button on:click={() => {
@@ -154,5 +154,9 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  .date {
+    font-size: 0.85rem;
   }
 </style>
