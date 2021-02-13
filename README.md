@@ -1,4 +1,4 @@
-### Friendship ended with spreadsheets. Now ApplyGuy is my best friend.
+### Friendship ended with spreadsheets. Now Apply Guy is my best friend.
 
 Deployed on Netlify: [https://apply-guy.netlify.app/](https://apply-guy.netlify.app/)
 

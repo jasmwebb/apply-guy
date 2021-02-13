@@ -52,7 +52,7 @@
     <a href="https://github.com/jasmwebb/apply-guy" target="_blank">View source on GitHub</a>
   </div>
   <p>Friendship ended with spreadsheets.</p>
-  <p>Now ApplyGuy is my best friend.</p>
+  <p>Now Apply Guy is my best friend.</p>
 </footer>
 
 <style>
